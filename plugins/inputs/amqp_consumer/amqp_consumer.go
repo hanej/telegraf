@@ -180,41 +180,41 @@ func (a *AMQPConsumer) connect(amqpConf *amqp.Config) (<-chan amqp.Delivery, err
 		return nil, fmt.Errorf("Failed to open a channel: %s", err)
 	}
 
-	err = ch.ExchangeDeclare(
-		a.Exchange, // name
-		"topic",    // type
-		true,       // durable
-		false,      // auto-deleted
-		false,      // internal
-		false,      // no-wait
-		nil,        // arguments
-	)
-	if err != nil {
-		return nil, fmt.Errorf("Failed to declare an exchange: %s", err)
-	}
+#	err = ch.ExchangeDeclare(
+#		a.Exchange, // name
+#		"topic",    // type
+#		true,       // durable
+#		false,      // auto-deleted
+#		false,      // internal
+#		false,      // no-wait
+#		nil,        // arguments
+#	)
+#	if err != nil {
+#		return nil, fmt.Errorf("Failed to declare an exchange: %s", err)
+#	}
 
-	q, err := ch.QueueDeclare(
-		a.Queue, // queue
-		true,    // durable
-		false,   // delete when unused
-		false,   // exclusive
-		false,   // no-wait
-		nil,     // arguments
-	)
-	if err != nil {
-		return nil, fmt.Errorf("Failed to declare a queue: %s", err)
-	}
+#	q, err := ch.QueueDeclare(
+#		a.Queue, // queue
+#		true,    // durable
+#		false,   // delete when unused
+#		false,   // exclusive
+#		false,   // no-wait
+#		nil,     // arguments
+#	)
+#	if err != nil {
+#		return nil, fmt.Errorf("Failed to declare a queue: %s", err)
+#	}
 
-	err = ch.QueueBind(
-		q.Name,       // queue
-		a.BindingKey, // binding-key
-		a.Exchange,   // exchange
-		false,
-		nil,
-	)
-	if err != nil {
-		return nil, fmt.Errorf("Failed to bind a queue: %s", err)
-	}
+#	err = ch.QueueBind(
+#		q.Name,       // queue
+#		a.BindingKey, // binding-key
+#		a.Exchange,   // exchange
+#		false,
+#		nil,
+#	)
+#	if err != nil {
+#		return nil, fmt.Errorf("Failed to bind a queue: %s", err)
+#	}
 
 	err = ch.Qos(
 		a.PrefetchCount,
